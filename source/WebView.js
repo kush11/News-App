@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 import Webview from 'react-native-webview';
 import Header from '../components/Header';
-let nav;
+
 export default class WebView extends PureComponent {
   constructor(props) {
     super(props);

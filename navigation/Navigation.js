@@ -10,7 +10,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="News" component={News} options={{title:'News'}} />
+        <Stack.Screen name="News" component={News} options={{title:null,headerShown:false}} />
         <Stack.Screen
           name="WebView"
           component={WebView}
