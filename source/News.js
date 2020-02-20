@@ -60,16 +60,14 @@ class componentName extends PureComponent {
   };
 
   render() {
-    // console.log('sasasas', this.state.data);
     return (
       <View style={{flex: 1}}>
         <SearchBar
           lightTheme
           icon={{type: 'font-awesome', name: 'search'}}
-          placeholder="Type Here..."
+          placeholder="Search Here..."
           onChangeText={this.updateSearch}
           onClear={this.fetchData}
-          //   onClearText={this.clear}
           value={this.state.search}
         />
         {/* <StatusBar
