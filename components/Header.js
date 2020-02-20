@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, Text } from 'react-native'
-
+import { View, Text, TouchableOpacity } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons';
 const Header = ({title,backPress}) => {
     return (
         <View
@@ -19,7 +19,7 @@ const Header = ({title,backPress}) => {
             //   backgroundColor:'white'
           }}
             onPress={() => {
-                backPress
+                backPress()
             }}>
             <Icon name='md-arrow-back' size={30} color='white'/>
           </TouchableOpacity>

@@ -31,7 +31,12 @@ class componentName extends PureComponent {
   refreshData = () => {
     this.setState({refreshing: false});
   };
-
+  pressed = (title, url) => {
+    this.props.navigation.navigate('WebView', {
+      title,
+      url,
+    });
+  };
   render() {
     return (
       <View style={{flex: 1}}>
@@ -44,7 +49,9 @@ class componentName extends PureComponent {
         {this.state.data.length > 0 ? (
           <FlatList
             data={this.state.data}
-            renderItem={({item}) => <RenderItem item={item} />}
+            renderItem={({item}) => (
+              <RenderItem item={item} pressed={this.pressed} />
+            )}
             keyExtractor={(item, index) => index.toString()}
             refreshing={this.state.refreshing}
             onRefresh={this.refreshData}

@@ -7,14 +7,14 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import moment from 'moment';
-const RenderCard = ({item}) => {
+const RenderCard = ({item, pressed}) => {
   return (
     <ImageBackground
       source={{uri: item.urlToImage}}
       style={styles.ImageBackground}>
       <TouchableOpacity
         onPress={() => {
-          console.log('pressed');
+          pressed(item.title, item.url);
         }}
         style={{
           backgroundColor: 'rgba(0,0,0,.5)',
