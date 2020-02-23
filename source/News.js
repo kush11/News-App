@@ -19,7 +19,7 @@ class componentName extends PureComponent {
 
   fetchData = async () => {
     Keyboard.dismiss(); // to remove the keyboard
-    const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=e9ed76ff6496462b8096d1e4b3178434`;
+    const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=e9ed76ff6496462b8096d1e4b3178434&pageSize=50`;
     await fetch(url, {
       method: 'GET',
     })
