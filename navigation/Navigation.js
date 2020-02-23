@@ -25,16 +25,17 @@ export default function App() {
           //       fontWeight: 'bold',
           //     },
           //   }}
-          options={({route}) => ({
-            title: route.params.name,
-            headerStyle: {
-              backgroundColor: '#0c084c',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          })}
+          // options={({route}) => ({
+          //   title: route.params.name,
+          //   headerStyle: {
+          //     backgroundColor: '#0c084c',
+          //   },
+          //   headerTintColor: '#fff',
+          //   headerTitleStyle: {
+          //     fontWeight: 'bold',
+          //   },
+          // })}
+          options={{title:null,headerShown:false}}
         />
       </Stack.Navigator>
     </NavigationContainer>
