@@ -1,9 +1,18 @@
 import React, {PureComponent} from 'react';
-import {View, Text, FlatList, StatusBar, Keyboard} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  StatusBar,
+  Keyboard,
+  TouchableOpacity,
+} from 'react-native';
 import RenderItem from '../components/RenderCard';
 import Nodata from '../components/NoData';
 import {SearchBar} from 'react-native-elements';
-
+import RBSheet from 'react-native-raw-bottom-sheet';
+import Data from './static.json';
+import RenderFilterData from '../components/RenderFilterData';
 class componentName extends PureComponent {
   constructor(props) {
     super(props);
@@ -11,6 +20,9 @@ class componentName extends PureComponent {
       data: [],
       refreshing: true,
       search: '',
+      country: 'India',
+      category: 'General',
+      countryCode: 'in',
     };
   }
   componentDidMount() {
@@ -19,7 +31,7 @@ class componentName extends PureComponent {
 
   fetchData = async () => {
     Keyboard.dismiss(); // to remove the keyboard
-    const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=e9ed76ff6496462b8096d1e4b3178434`;
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.state.countryCode}&category=${this.state.category}&apiKey=e9ed76ff6496462b8096d1e4b3178434`;
     await fetch(url, {
       method: 'GET',
     })
@@ -58,6 +70,18 @@ class componentName extends PureComponent {
         .catch(err => console.log('err', err));
     }
   };
+  condition = async (data) =>{
+    console.log('aya')
+    if(data.name){
+      await this.setState({countryCode:data.code,country:data.name})
+      this.Country.close();
+    }
+    else if(data.category){
+      await this.setState({category:data.category})
+        this.Category.close();
+    }
+    this.fetchData();
+  }
 
   render() {
     return (
@@ -70,6 +94,52 @@ class componentName extends PureComponent {
           onClear={this.fetchData}
           value={this.state.search}
         />
+        <RBSheet
+          ref={ref => {
+            this.Country = ref;
+          }}
+          closeOnDragDown
+          customStyles={{
+            container: {
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+            },
+          }}
+          height={330}>
+          <FlatList
+            data={Data.country}
+            renderItem={({item}) => (<RenderFilterData item={item} condition={this.condition}/>)}
+          />
+        </RBSheet>
+        <RBSheet
+          ref={ref => {
+            this.Category = ref;
+          }}
+          closeOnDragDown
+          customStyles={{
+            container: {
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+            },
+          }}
+          height={330}>
+          <FlatList
+            data={Data.category}
+            renderItem={({item}) => (<RenderFilterData item={item} condition={this.condition}/>)}
+          />
+        </RBSheet>
+        <View style={{height: 10, flexDirection: 'row'}}>
+          <TouchableOpacity
+            style={{flex: 1, left: 10}}
+            onPress={() => this.Country.open()}>
+            <Text>Country: {this.state.country}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{flex: 1, right: 10, alignItems: 'flex-end'}}
+            onPress={() => this.Category.open()}>
+            <Text>Category: {this.state.category}</Text>
+          </TouchableOpacity>
+        </View>
         {/* <StatusBar
           backgroundColor="transparent"
           hidden={true}
